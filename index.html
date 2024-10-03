@@ -57,7 +57,7 @@
         }
 
         // Particle system
-        const particleCount = 40000; // Increased particle count for higher density
+        const particleCount = 60000; // Increased particle count for higher density
         const particles = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         const colors = new Float32Array(particleCount * 3);
@@ -124,17 +124,6 @@
         const particleSystem = new THREE.Points(particles, particleMaterial);
         scene.add(particleSystem);
 
-        // Create the mirrored particle system
-        const mirroredParticles = particles.clone();
-        const mirroredPositions = mirroredParticles.attributes.position.array;
-
-        for (let i = 0; i < mirroredPositions.length; i += 3) {
-            mirroredPositions[i + 2] = -mirroredPositions[i + 2]; // Mirror along the z-axis
-        }
-
-        const mirroredParticleSystem = new THREE.Points(mirroredParticles, particleMaterial);
-        scene.add(mirroredParticleSystem);
-
         camera.position.z = 200;
 
         // Post-processing
@@ -156,8 +145,6 @@
             requestAnimationFrame(animate);
             particleSystem.rotation.y += 0.001;
             particleSystem.rotation.x += 0.0005;
-            mirroredParticleSystem.rotation.y += 0.001;
-            mirroredParticleSystem.rotation.x += 0.0005;
             composer.render();
         }
         animate();
