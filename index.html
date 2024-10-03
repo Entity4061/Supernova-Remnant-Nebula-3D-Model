@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layered Wave Nebula Particle System</title>
+    <title>Complex Layered Wave Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -57,7 +57,28 @@
             const layer = Math.floor(i / (particleCount / 5));
             const angle = Math.random() * 2 * Math.PI;
             const radius = Math.random() * 50 + layer * 20;
-            const height = Math.sin(angle * 3 + layer) * 10;
+            let height;
+
+            // Different wave styles for each layer
+            switch (layer) {
+                case 0:
+                    height = Math.sin(angle * 3 + layer) * 10;
+                    break;
+                case 1:
+                    height = Math.cos(angle * 2 + layer) * 15;
+                    break;
+                case 2:
+                    height = Math.sin(angle * 4 + layer) * 20;
+                    break;
+                case 3:
+                    height = Math.cos(angle * 3 + layer) * 25;
+                    break;
+                case 4:
+                    height = Math.sin(angle * 5 + layer) * 30;
+                    break;
+                default:
+                    height = Math.sin(angle * 3 + layer) * 10;
+            }
 
             positions[i * 3] = radius * Math.cos(angle);
             positions[i * 3 + 1] = height + layer * 20;
@@ -98,9 +119,9 @@
         const composer = new THREE.EffectComposer(renderer);
         composer.addPass(new THREE.RenderPass(scene, camera));
 
-        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 2.5, 0.4, 0.85); // Increased bloom strength
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85); // Reduced bloom strength
         bloomPass.threshold = 0;
-        bloomPass.strength = 2.5; // Increased bloom strength
+        bloomPass.strength = 1.5; // Reduced bloom strength
         bloomPass.radius = 0;
         composer.addPass(bloomPass);
 
@@ -119,4 +140,3 @@
     </script>
 </body>
 </html>
-
