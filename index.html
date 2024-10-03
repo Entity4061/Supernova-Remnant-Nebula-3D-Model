@@ -66,26 +66,8 @@
             const radius = Math.random() * 50 + layer * 20;
             let height;
 
-            // Different non-symmetrical wave styles for each layer
-            switch (layer) {
-                case 0:
-                    height = Math.sin(angle * 3 + layer) * 10 + Math.random() * 5;
-                    break;
-                case 1:
-                    height = Math.cos(angle * 2 + layer) * 15 + Math.random() * 10;
-                    break;
-                case 2:
-                    height = Math.sin(angle * 4 + layer) * 20 + Math.random() * 15;
-                    break;
-                case 3:
-                    height = Math.cos(angle * 3 + layer) * 25 + Math.random() * 20;
-                    break;
-                case 4:
-                    height = Math.sin(angle * 5 + layer) * 30 + Math.random() * 25;
-                    break;
-                default:
-                    height = Math.sin(angle * 3 + layer) * 10 + Math.random() * 5;
-            }
+            // Irregular shell-like structure
+            height = (Math.sin(angle * 3 + layer) * 10 + Math.random() * 5) * (Math.random() > 0.5 ? 1 : -1);
 
             positions[i * 3] = radius * Math.cos(angle);
             positions[i * 3 + 1] = height + layer * 20;
