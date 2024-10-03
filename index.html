@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complex Layered Wave Nebula Particle System</title>
+    <title>Non-Symmetrical Layered Wave Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -59,25 +59,25 @@
             const radius = Math.random() * 50 + layer * 20;
             let height;
 
-            // Different wave styles for each layer
+            // Different non-symmetrical wave styles for each layer
             switch (layer) {
                 case 0:
-                    height = Math.sin(angle * 3 + layer) * 10;
+                    height = Math.sin(angle * 3 + layer) * 10 + Math.random() * 5;
                     break;
                 case 1:
-                    height = Math.cos(angle * 2 + layer) * 15;
+                    height = Math.cos(angle * 2 + layer) * 15 + Math.random() * 10;
                     break;
                 case 2:
-                    height = Math.sin(angle * 4 + layer) * 20;
+                    height = Math.sin(angle * 4 + layer) * 20 + Math.random() * 15;
                     break;
                 case 3:
-                    height = Math.cos(angle * 3 + layer) * 25;
+                    height = Math.cos(angle * 3 + layer) * 25 + Math.random() * 20;
                     break;
                 case 4:
-                    height = Math.sin(angle * 5 + layer) * 30;
+                    height = Math.sin(angle * 5 + layer) * 30 + Math.random() * 25;
                     break;
                 default:
-                    height = Math.sin(angle * 3 + layer) * 10;
+                    height = Math.sin(angle * 3 + layer) * 10 + Math.random() * 5;
             }
 
             positions[i * 3] = radius * Math.cos(angle);
