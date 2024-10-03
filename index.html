@@ -9,6 +9,8 @@
         canvas { display: block; }
         body {
             background: radial-gradient(circle at center, #000000, #1a1a1a, #333333, #4d4d4d, #666666);
+            background-image: url('https://threejs.org/examples/textures/cube/skybox/px.jpg'); /* Adding a starry sky background */
+            background-size: cover;
         }
     </style>
 </head>
@@ -48,13 +50,8 @@
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
 
-        const colorOptions = [
-            new THREE.Color(0x0000ff), // Blue
-            new THREE.Color(0x00ff00), // Green
-            new THREE.Color(0xff0000), // Red
-            new THREE.Color(0xffff00), // Yellow
-            new THREE.Color(0xff00ff)  // Magenta
-        ];
+        const startColor = new THREE.Color(0x800080); // Purple
+        const endColor = new THREE.Color(0xadd8e6); // Light Blue
 
         function blendColors(color1, color2, ratio) {
             const r = color1.r * (1 - ratio) + color2.r * ratio;
@@ -76,9 +73,8 @@
             positions[i * 3 + 1] = height + layer * 20;
             positions[i * 3 + 2] = radius * Math.sin(angle);
 
-            const color1 = colorOptions[layer % colorOptions.length];
-            const color2 = colorOptions[(layer + 1) % colorOptions.length];
-            const blendedColor = blendColors(color1, color2, Math.random());
+            const ratio = i / particleCount;
+            const blendedColor = blendColors(startColor, endColor, ratio);
 
             colors[i * 3] = blendedColor.r;
             colors[i * 3 + 1] = blendedColor.g;
