@@ -1,4 +1,4 @@
-# Supernova Remnant Particle System
+![Screenshot 2024-10-03 175445](https://github.com/user-attachments/assets/6707ab47-ea55-4995-996a-24926cff37b2)# Supernova Remnant Particle System
 
 This project visualizes a supernova remnant using a particle system in Three.js. The particles are arranged in an irregular, shell-like structure with distinct color layers to resemble the appearance of a supernova remnant.
 To access this use this link here - [https://github.com/Entity4061/Supernova-Remnant-Nebula-3D-Model
