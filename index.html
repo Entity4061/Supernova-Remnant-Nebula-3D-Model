@@ -41,13 +41,20 @@
         directionalLight.position.set(5, 10, 7.5);
         scene.add(directionalLight);
 
-        // Starry sky background
-        const loader = new THREE.TextureLoader();
-        const texture = loader.load('https://images.unsplash.com/photo-1691989949393-7cc2a4a1c518?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-        const starMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
-        const starGeometry = new THREE.SphereGeometry(500, 32, 32);
-        const starMesh = new THREE.Mesh(starGeometry, starMaterial);
-        scene.add(starMesh);
+        // Starry sky using glowing spheres
+        const starGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+        const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const starCount = 1000;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = new THREE.Mesh(starGeometry, starMaterial);
+            star.position.set(
+                (Math.random() - 0.5) * 1000,
+                (Math.random() - 0.5) * 1000,
+                (Math.random() - 0.5) * 1000
+            );
+            scene.add(star);
+        }
 
         // Particle system
         const particleCount = 40000; // Increased particle count for higher density
