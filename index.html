@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connected Layered Wave Nebula Particle System</title>
+    <title>Supernova Remnant Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -46,11 +46,11 @@
         const sizes = new Float32Array(particleCount);
 
         const colorOptions = [
-            new THREE.Color(0xffa500), // Orange
-            new THREE.Color(0xffff00), // Yellow
+            new THREE.Color(0x0000ff), // Blue
+            new THREE.Color(0x00ff00), // Green
             new THREE.Color(0xff0000), // Red
-            new THREE.Color(0x800080), // Purple
-            new THREE.Color(0xffffff)  // White
+            new THREE.Color(0xffff00), // Yellow
+            new THREE.Color(0xff00ff)  // Magenta
         ];
 
         function blendColors(color1, color2, ratio) {
