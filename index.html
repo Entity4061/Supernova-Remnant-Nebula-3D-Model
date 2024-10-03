@@ -54,13 +54,13 @@
         ];
 
         for (let i = 0; i < particleCount; i++) {
-            const theta = Math.random() * 2 * Math.PI;
-            const phi = Math.acos((Math.random() * 2) - 1);
-            const radius = Math.random() * 50;
+            const t = Math.random() * 2 * Math.PI;
+            const u = Math.random() * 2 - 1;
+            const r = Math.sqrt(1 - u * u);
 
-            positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-            positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-            positions[i * 3 + 2] = radius * Math.cos(phi);
+            positions[i * 3] = r * Math.cos(t) * 100;
+            positions[i * 3 + 1] = r * Math.sin(t) * 100;
+            positions[i * 3 + 2] = u * 100;
 
             const color = colorOptions[Math.floor(Math.random() * colorOptions.length)];
             colors[i * 3] = color.r;
