@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blended Color Layered Wave Nebula Particle System</title>
+    <title>Connected Layered Wave Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -129,9 +129,9 @@
         const composer = new THREE.EffectComposer(renderer);
         composer.addPass(new THREE.RenderPass(scene, camera));
 
-        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85); // Reduced bloom strength
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.0, 0.4, 0.85); // Further reduced bloom strength
         bloomPass.threshold = 0;
-        bloomPass.strength = 1.5; // Reduced bloom strength
+        bloomPass.strength = 1.0; // Further reduced bloom strength
         bloomPass.radius = 0;
         composer.addPass(bloomPass);
 
