@@ -69,12 +69,14 @@
             const radius = Math.random() * 50 + layer * 20;
             let height;
 
-            // Irregular shell-like structure
-            height = (Math.sin(angle * 3 + layer) * 10 + Math.random() * 5) * (Math.random() > 0.5 ? 1 : -1);
+            // Irregular spherical shape
+            const phi = Math.acos(2 * Math.random() - 1);
+            const theta = 2 * Math.PI * Math.random();
+            const r = 50 + Math.random() * 50; // Random radius for unsymmetrical shape
 
-            positions[i * 3] = radius * Math.cos(angle);
-            positions[i * 3 + 1] = height + layer * 20;
-            positions[i * 3 + 2] = radius * Math.sin(angle);
+            positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+            positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            positions[i * 3 + 2] = r * Math.cos(phi);
 
             const color1 = colorOptions[layer % colorOptions.length];
             const color2 = colorOptions[(layer + 1) % colorOptions.length];
