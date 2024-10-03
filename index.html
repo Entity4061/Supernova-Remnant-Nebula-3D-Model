@@ -141,13 +141,30 @@
         composer.addPass(fxaaPass);
 
         // Animation loop
+        const radius = 200;
+        let angle = 0;
+
         function animate() {
             requestAnimationFrame(animate);
-            particleSystem.rotation.y += 0.00;
-            particleSystem.rotation.x += 0.000;
+
+            // Update camera position
+            angle += 0.001;
+            camera.position.x = radius * Math.cos(angle);
+            camera.position.z = radius * Math.sin(angle);
+            camera.lookAt(scene.position);
+
+            particleSystem.rotation.y += 0.001;
+            particleSystem.rotation.x += 0.0005;
             composer.render();
         }
         animate();
+
+        // Event listener for arrow key press
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                window.location.href = 'supernova.html';
+            }
+        });
     </script>
 </body>
 </html>
