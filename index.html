@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Non-Symmetrical Layered Wave Nebula Particle System</title>
+    <title>Blended Color Layered Wave Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -53,6 +53,13 @@
             new THREE.Color(0xffffff)  // White
         ];
 
+        function blendColors(color1, color2, ratio) {
+            const r = color1.r * (1 - ratio) + color2.r * ratio;
+            const g = color1.g * (1 - ratio) + color2.g * ratio;
+            const b = color1.b * (1 - ratio) + color2.b * ratio;
+            return new THREE.Color(r, g, b);
+        }
+
         for (let i = 0; i < particleCount; i++) {
             const layer = Math.floor(i / (particleCount / 5));
             const angle = Math.random() * 2 * Math.PI;
@@ -84,10 +91,13 @@
             positions[i * 3 + 1] = height + layer * 20;
             positions[i * 3 + 2] = radius * Math.sin(angle);
 
-            const color = colorOptions[layer % colorOptions.length];
-            colors[i * 3] = color.r;
-            colors[i * 3 + 1] = color.g;
-            colors[i * 3 + 2] = color.b;
+            const color1 = colorOptions[layer % colorOptions.length];
+            const color2 = colorOptions[(layer + 1) % colorOptions.length];
+            const blendedColor = blendColors(color1, color2, Math.random());
+
+            colors[i * 3] = blendedColor.r;
+            colors[i * 3 + 1] = blendedColor.g;
+            colors[i * 3 + 2] = blendedColor.b;
 
             sizes[i] = Math.random() * 1.5;
         }
