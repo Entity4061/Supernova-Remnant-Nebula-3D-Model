@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abstract Nebula Particle System</title>
+    <title>Layered Wave Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -54,15 +54,16 @@
         ];
 
         for (let i = 0; i < particleCount; i++) {
-            const t = Math.random() * 2 * Math.PI;
-            const u = Math.random() * 2 - 1;
-            const r = Math.sqrt(1 - u * u);
+            const layer = Math.floor(i / (particleCount / 5));
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = Math.random() * 50 + layer * 20;
+            const height = Math.sin(angle * 3 + layer) * 10;
 
-            positions[i * 3] = r * Math.cos(t) * 100;
-            positions[i * 3 + 1] = r * Math.sin(t) * 100;
-            positions[i * 3 + 2] = u * 100;
+            positions[i * 3] = radius * Math.cos(angle);
+            positions[i * 3 + 1] = height + layer * 20;
+            positions[i * 3 + 2] = radius * Math.sin(angle);
 
-            const color = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+            const color = colorOptions[layer % colorOptions.length];
             colors[i * 3] = color.r;
             colors[i * 3 + 1] = color.g;
             colors[i * 3 + 2] = color.b;
@@ -118,3 +119,4 @@
     </script>
 </body>
 </html>
+
