@@ -48,12 +48,12 @@
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
 
-        const colorOptions = [
-            new THREE.Color(0x0000ff), // Blue
-            new THREE.Color(0x00ff00), // Green
+        const colorLayers = [
             new THREE.Color(0xff0000), // Red
+            new THREE.Color(0xffa500), // Orange
             new THREE.Color(0xffff00), // Yellow
-            new THREE.Color(0xff00ff)  // Magenta
+            new THREE.Color(0x00ff00), // Green
+            new THREE.Color(0x0000ff)  // Blue
         ];
 
         function blendColors(color1, color2, ratio) {
@@ -64,12 +64,12 @@
         }
 
         for (let i = 0; i < particleCount; i++) {
-            const layer = Math.floor(i / (particleCount / 5));
+            const layer = Math.floor(i / (particleCount / colorLayers.length));
             const angle = Math.random() * 2 * Math.PI;
             const radius = Math.random() * 50 + layer * 20;
             let height;
 
-            // Irregular spherical shape
+            // Irregular shell-like structure
             const phi = Math.acos(2 * Math.random() - 1);
             const theta = 2 * Math.PI * Math.random();
             const r = 50 + Math.random() * 50; // Random radius for unsymmetrical shape
@@ -78,8 +78,13 @@
             positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
             positions[i * 3 + 2] = r * Math.cos(phi);
 
-            const color1 = colorOptions[layer % colorOptions.length];
-            const color2 = colorOptions[(layer + 1) % colorOptions.length];
+            // Adding more randomness to create an abstract shape
+            positions[i * 3] += (Math.random() - 0.5) * 20;
+            positions[i * 3 + 1] += (Math.random() - 0.5) * 20;
+            positions[i * 3 + 2] += (Math.random() - 0.5) * 20;
+
+            const color1 = colorLayers[layer % colorLayers.length];
+            const color2 = colorLayers[(layer + 1) % colorLayers.length];
             const blendedColor = blendColors(color1, color2, Math.random());
 
             colors[i * 3] = blendedColor.r;
