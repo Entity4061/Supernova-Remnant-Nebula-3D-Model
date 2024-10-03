@@ -17,6 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FXAAShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
     <script>
         // Scene setup
         const scene = new THREE.Scene();
@@ -63,7 +64,7 @@
 
         // Load a texture for the particles
         const textureLoader = new THREE.TextureLoader();
-        const particleTexture = textureLoader.load('https://threejsfundamentals.org/threejs/resources/images/disc.png');
+        const particleTexture = textureLoader.load('https://threejs.org/examples/textures/sprites/disc.png');
 
         const particleMaterial = new THREE.PointsMaterial({
             size: 1,
