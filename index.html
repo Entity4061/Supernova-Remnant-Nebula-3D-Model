@@ -9,8 +9,6 @@
         canvas { display: block; }
         body {
             background: radial-gradient(circle at center, #000000, #1a1a1a, #333333, #4d4d4d, #666666);
-            background-image: url('https://threejs.org/examples/textures/cube/skybox/px.jpg'); /* Adding a starry sky background */
-            background-size: cover;
         }
     </style>
 </head>
@@ -43,6 +41,13 @@
         directionalLight.position.set(5, 10, 7.5);
         scene.add(directionalLight);
 
+        // Starry sky background
+        const starTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/cube/skybox/px.jpg');
+        const starMaterial = new THREE.MeshBasicMaterial({ map: starTexture, side: THREE.BackSide });
+        const starGeometry = new THREE.SphereGeometry(500, 32, 32);
+        const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+        scene.add(starMesh);
+
         // Particle system
         const particleCount = 40000; // Increased particle count for higher density
         const particles = new THREE.BufferGeometry();
@@ -50,8 +55,12 @@
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
 
-        const startColor = new THREE.Color(0x800080); // Purple
-        const endColor = new THREE.Color(0x0000ff); // Vivid Blue
+        const colorStops = [
+            new THREE.Color(0x87CEEB), // Sky Blue
+            new THREE.Color(0x0000FF), // Normal Blue
+            new THREE.Color(0xFFC0CB), // Pink
+            new THREE.Color(0x800080)  // Purple
+        ];
 
         function blendColors(color1, color2, ratio) {
             const r = color1.r * (1 - ratio) + color2.r * ratio;
@@ -74,7 +83,9 @@
             positions[i * 3 + 2] = radius * Math.sin(angle);
 
             const ratio = i / particleCount;
-            const blendedColor = blendColors(startColor, endColor, ratio);
+            const colorIndex = Math.floor(ratio * (colorStops.length - 1));
+            const colorRatio = (ratio * (colorStops.length - 1)) % 1;
+            const blendedColor = blendColors(colorStops[colorIndex], colorStops[colorIndex + 1], colorRatio);
 
             colors[i * 3] = blendedColor.r;
             colors[i * 3 + 1] = blendedColor.g;
