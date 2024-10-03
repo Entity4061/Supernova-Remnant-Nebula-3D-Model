@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibrant Nebula Particle System</title>
+    <title>Abstract Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -45,16 +45,24 @@
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
 
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] = (Math.random() * 2 - 1) * 100;
-            positions[i * 3 + 1] = (Math.random() * 2 - 1) * 100;
-            positions[i * 3 + 2] = (Math.random() * 2 - 1) * 100;
+        const colorOptions = [
+            new THREE.Color(0xffa500), // Orange
+            new THREE.Color(0xffff00), // Yellow
+            new THREE.Color(0xff0000), // Red
+            new THREE.Color(0x800080), // Purple
+            new THREE.Color(0xffffff)  // White
+        ];
 
-            const color = new THREE.Color();
-            const hue = Math.random() * 0.1 + 0.6; // Purple to blue range
-            const saturation = Math.random() * 0.5 + 0.75; // High saturation for vibrant colors
-            const lightness = Math.random() * 0.4 + 0.6; // Moderate to high lightness
-            color.setHSL(hue, saturation, lightness);
+        for (let i = 0; i < particleCount; i++) {
+            const theta = Math.random() * 2 * Math.PI;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            const radius = Math.random() * 50;
+
+            positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+            positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+            positions[i * 3 + 2] = radius * Math.cos(phi);
+
+            const color = colorOptions[Math.floor(Math.random() * colorOptions.length)];
             colors[i * 3] = color.r;
             colors[i * 3 + 1] = color.g;
             colors[i * 3 + 2] = color.b;
