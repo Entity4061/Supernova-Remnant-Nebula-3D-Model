@@ -7,6 +7,9 @@
     <style>
         body { margin: 0; }
         canvas { display: block; }
+        body {
+            background: radial-gradient(circle at center, #000000, #1a1a1a, #333333, #4d4d4d, #666666);
+        }
     </style>
 </head>
 <body>
@@ -39,7 +42,7 @@
         scene.add(directionalLight);
 
         // Particle system
-        const particleCount = 20000;
+        const particleCount = 40000; // Increased particle count for higher density
         const particles = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         const colors = new Float32Array(particleCount * 3);
