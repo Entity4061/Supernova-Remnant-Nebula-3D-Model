@@ -42,11 +42,16 @@
         scene.add(directionalLight);
 
         // Starry sky background
-        const starTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/cube/skybox/px.jpg');
-        const starMaterial = new THREE.MeshBasicMaterial({ map: starTexture, side: THREE.BackSide });
-        const starGeometry = new THREE.SphereGeometry(500, 32, 32);
-        const starMesh = new THREE.Mesh(starGeometry, starMaterial);
-        scene.add(starMesh);
+        const loader = new THREE.CubeTextureLoader();
+        const texture = loader.load([
+            'https://threejs.org/examples/textures/cube/skybox/px.jpg',
+            'https://threejs.org/examples/textures/cube/skybox/nx.jpg',
+            'https://threejs.org/examples/textures/cube/skybox/py.jpg',
+            'https://threejs.org/examples/textures/cube/skybox/ny.jpg',
+            'https://threejs.org/examples/textures/cube/skybox/pz.jpg',
+            'https://threejs.org/examples/textures/cube/skybox/nz.jpg'
+        ]);
+        scene.background = texture;
 
         // Particle system
         const particleCount = 40000; // Increased particle count for higher density
@@ -56,9 +61,9 @@
         const sizes = new Float32Array(particleCount);
 
         const colorStops = [
-            new THREE.Color(0x87CEEB), // Sky Blue
+            new THREE.Color(0x00BFFF), // Sky Blue
             new THREE.Color(0x0000FF), // Normal Blue
-            new THREE.Color(0xFFC0CB), // Pink
+            new THREE.Color(0xFF69B4), // Pink
             new THREE.Color(0x800080)  // Purple
         ];
 
