@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Illuminated Nebula Particle System</title>
+    <title>Vibrant Nebula Particle System</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -51,7 +51,10 @@
             positions[i * 3 + 2] = (Math.random() * 2 - 1) * 100;
 
             const color = new THREE.Color();
-            color.setHSL(Math.random(), 1.0, 0.7); // Increased lightness for brighter colors
+            const hue = Math.random() * 0.1 + 0.6; // Purple to blue range
+            const saturation = Math.random() * 0.5 + 0.75; // High saturation for vibrant colors
+            const lightness = Math.random() * 0.4 + 0.6; // Moderate to high lightness
+            color.setHSL(hue, saturation, lightness);
             colors[i * 3] = color.r;
             colors[i * 3 + 1] = color.g;
             colors[i * 3 + 2] = color.b;
@@ -86,9 +89,9 @@
         const composer = new THREE.EffectComposer(renderer);
         composer.addPass(new THREE.RenderPass(scene, camera));
 
-        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 2.0, 0.4, 0.85); // Increased bloom strength
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 2.5, 0.4, 0.85); // Increased bloom strength
         bloomPass.threshold = 0;
-        bloomPass.strength = 2.0; // Increased bloom strength
+        bloomPass.strength = 2.5; // Increased bloom strength
         bloomPass.radius = 0;
         composer.addPass(bloomPass);
 
