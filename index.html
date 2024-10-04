@@ -63,10 +63,6 @@
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
 
-        const initialPositions = new Float32Array(particleCount * 3);
-        const targetPositions = new Float32Array(particleCount * 3);
-        const finalPositions = new Float32Array(particleCount * 3);
-
         const colorStops = [
             new THREE.Color(0x00BFFF), // Sky Blue
             new THREE.Color(0x0000FF), // Normal Blue
@@ -82,23 +78,18 @@
             return new THREE.Color(r, g, b);
         }
 
-        // Set initial and target positions for particles
         for (let i = 0; i < particleCount; i++) {
-            initialPositions[i * 3] = (Math.random() - 0.5) * 1000;
-            initialPositions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
-            initialPositions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
-
+            const layer = Math.floor(i / (particleCount / 5));
             const angle = Math.random() * 2 * Math.PI;
-            const radius = Math.random() * 50;
-            const height = (Math.random() - 0.5) * 20;
+            const radius = Math.random() * 50 + layer * 20;
+            let height;
 
-            targetPositions[i * 3] = radius * Math.cos(angle);
-            targetPositions[i * 3 + 1] = height;
-            targetPositions[i * 3 + 2] = radius * Math.sin(angle);
+            // Irregular shell-like structure
+            height = (Math.sin(angle * 3 + layer) * 10 + Math.random() * 5) * (Math.random() > 0.5 ? 1 : -1);
 
-            finalPositions[i * 3] = 0;
-            finalPositions[i * 3 + 1] = 0;
-            finalPositions[i * 3 + 2] = 0;
+            positions[i * 3] = radius * Math.cos(angle);
+            positions[i * 3 + 1] = height + layer * 20;
+            positions[i * 3 + 2] = radius * Math.sin(angle);
 
             const ratio = i / particleCount;
             const colorIndex = Math.floor(ratio * (colorStops.length - 1));
@@ -112,7 +103,7 @@
             sizes[i] = Math.random() * 1.5;
         }
 
-        particles.setAttribute('position', new THREE.BufferAttribute(initialPositions, 3));
+        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
         particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
@@ -148,7 +139,37 @@
         const fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
         fxaaPass.uniforms['resolution'].value.set(1 / window.innerWidth, 1 / window.innerHeight);
         composer.addPass(fxaaPass);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            particleSystem.rotation.y += 0.001;
+            particleSystem.rotation.x += 0.0005;
+            composer.render();
+        }
+        animate();
+
+        // Movement controls
+        window.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                    loadSupernovaAnimation();
+                    break;
+            }
+        });
+
+        function loadSupernovaAnimation() {
+            const script = document.createElement('script');
+            script.src = 'supernovaAnimation.js';
+            document.body.appendChild(script);
+            script.onload = () => {
+                animateParticlesToSupernova(particles);
+            };
+        }
     </script>
-    <script src="animation.js"></script>
 </body>
 </html>
