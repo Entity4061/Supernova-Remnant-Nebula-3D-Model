@@ -141,17 +141,8 @@
         composer.addPass(fxaaPass);
 
         // Animation loop
-        const radius = 200;
-        let angle = 0;
-
         function animate() {
             requestAnimationFrame(animate);
-
-            // Update camera position
-            angle += 0.001;
-            camera.position.x = radius * Math.cos(angle);
-            camera.position.z = radius * Math.sin(angle);
-            camera.lookAt(scene.position);
 
             particleSystem.rotation.y += 0.001;
             particleSystem.rotation.x += 0.0005;
@@ -159,10 +150,22 @@
         }
         animate();
 
-        // Event listener for arrow key press
+        // Movement controls
+        const moveSpeed = 2;
         window.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowRight') {
-                window.location.href = 'supernova.html';
+            switch (event.key) {
+                case 'ArrowUp':
+                    camera.position.z -= moveSpeed;
+                    break;
+                case 'ArrowDown':
+                    camera.position.z += moveSpeed;
+                    break;
+                case 'ArrowLeft':
+                    camera.position.x -= moveSpeed;
+                    break;
+                case 'ArrowRight':
+                    camera.position.x += moveSpeed;
+                    break;
             }
         });
     </script>
