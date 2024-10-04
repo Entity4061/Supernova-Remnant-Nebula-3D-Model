@@ -65,6 +65,7 @@
 
         const initialPositions = new Float32Array(particleCount * 3);
         const targetPositions = new Float32Array(particleCount * 3);
+        const finalPositions = new Float32Array(particleCount * 3);
 
         const colorStops = [
             new THREE.Color(0x00BFFF), // Sky Blue
@@ -94,6 +95,10 @@
             targetPositions[i * 3] = radius * Math.cos(angle);
             targetPositions[i * 3 + 1] = height;
             targetPositions[i * 3 + 2] = radius * Math.sin(angle);
+
+            finalPositions[i * 3] = 0;
+            finalPositions[i * 3 + 1] = 0;
+            finalPositions[i * 3 + 2] = 0;
 
             const ratio = i / particleCount;
             const colorIndex = Math.floor(ratio * (colorStops.length - 1));
